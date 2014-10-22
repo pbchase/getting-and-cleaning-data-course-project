@@ -1,5 +1,8 @@
 # run_analysis.R
 
+# load required libraries
+library(data.table)
+
 # Download data file
 dataFile <- "getdata_data_projectfiles_UCI_HAR_Dataset.zip"
 if (!file.exists(dataFile)){
@@ -8,6 +11,46 @@ if (!file.exists(dataFile)){
 } else {
     print("File already exists locally")
 }
+
+# Extract the contents of the zip file
+unzip(dataFile)
+
+# Build vector of trues and falses to extract
+# mean and standard deviation data values from data files.
+# First initialize to the size we need with all values false.
+mask <- rep(FALSE, 561)
+
+# Use an array enumerating each row in the features.txt file that
+# matched the pattern "mean|std". This list was created with this
+# shell script:
+#
+#      cat features.txt | grep "mean\|std" | sed -e "s/ .*/, /;"
+#
+trueValues <- c(1, 2, 3, 4, 5, 6, 41, 42, 43, 44, 45, 46, 81,
+    82, 83, 84, 85, 86, 121, 122, 123, 124, 125, 126, 161, 162,
+    163, 164, 165, 166, 201, 202, 214, 215, 227, 228, 240, 241, 253,
+    254, 266, 267, 268, 269, 270, 271, 294, 295, 296, 345, 346, 347,
+    348, 349, 350, 373, 374, 375, 424, 425, 426, 427, 428, 429, 452,
+    453, 454, 503, 504, 513, 516, 517, 526, 529, 530, 539, 542, 543,
+    552)
+mask[trueValues] <- TRUE
+
+# Use the mask to create vector indicating which columns should be
+# read from training and test datasets.
+# These files are fixed width files.  Each column is 16 characters wide.
+# A value of  16 indicates we should read those characters as a column.
+# A value of -16 indicates we should skip those characters in the file.
+feature_widths <- rep(-16, 561)
+feature_widths[mask] <- 16
+
+# Identify files of interest
+# These file are training and test data
+trainFile <- "UCI HAR Dataset/train/X_train.txt"
+testFile <- "UCI HAR Dataset/test/X_test.txt"
+
+# Read the data sets
+trainData <- read.fwf(trainFile, feature_widths, sep='')
+testData <- read.fwf(testFile, feature_widths, sep='')
 
 # Merge the training and the test sets to create one data set.
 
