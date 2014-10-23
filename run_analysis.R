@@ -56,22 +56,27 @@ testData <- read.fwf(testDataFile, feature_widths, sep='')
 trainSubjectFile <- "UCI HAR Dataset/train/subject_train.txt"
 testSubjectFile <- "UCI HAR Dataset/test/subject_test.txt"
 # read the subjects
-trainSubject <- read.delim(trainSubjectFile)
-testSubject <- read.delim(testSubjectFile)
+trainSubject <- read.table(trainSubjectFile)
+testSubject <- read.table(testSubjectFile)
 
 # get the activities
 # files that identify the activity in each row of data above
 trainActivityFile <- "UCI HAR Dataset/train/y_train.txt"
 testActivityFile <- "UCI HAR Dataset/test/y_test.txt"
 # read the activities
-trainActivity <- read.delim(trainActivityFile)
-testActivity <- read.delim(testActivityFile)
+trainActivity <- read.table(trainActivityFile)
+testActivity <- read.table(testActivityFile)
 
 # get the activity labels
 activityLabelFile <- "UCI HAR Dataset/activity_labels.txt"
 # read the labels
 activityLabel <- read.table(activityLabelFile, sep=" ")
 
+# Merge all the components of the training data into one dataframe
+train <- cbind(trainSubject, trainActivity, trainData)
+
+# Merge all the components of the test data into one dataframe
+test <- cbind(testSubject, testActivity, testData)
 
 
 # Merge the training and the test sets to create one data set.
