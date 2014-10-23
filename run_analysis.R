@@ -85,9 +85,6 @@ test <- cbind(testSubject, testActivity, subjectGroup, testData)
 # Merge the training and the test sets to create one data set.
 data <- rbind(train, test)
 
-# Extract the measurements on the mean and standard deviation for each measurement.
-
-
 # Use descriptive activity names to name the activities in the data set
 
 
