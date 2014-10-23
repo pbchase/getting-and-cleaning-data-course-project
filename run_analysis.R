@@ -43,14 +43,38 @@ mask[trueValues] <- TRUE
 feature_widths <- rep(-16, 561)
 feature_widths[mask] <- 16
 
-# Identify files of interest
+# Get the data
 # These file are training and test data
-trainFile <- "UCI HAR Dataset/train/X_train.txt"
-testFile <- "UCI HAR Dataset/test/X_test.txt"
-
+trainDataFile <- "UCI HAR Dataset/train/X_train.txt"
+testDataFile <- "UCI HAR Dataset/test/X_test.txt"
 # Read the data sets
-trainData <- read.fwf(trainFile, feature_widths, sep='')
-testData <- read.fwf(testFile, feature_widths, sep='')
+trainData <- read.fwf(trainDataFile, feature_widths, sep='')
+testData <- read.fwf(testDataFile, feature_widths, sep='')
+
+# Get the subjects
+# files that identify the subject in each row of data above
+trainSubjectFile <- "UCI HAR Dataset/train/subject_train.txt"
+testSubjectFile <- "UCI HAR Dataset/test/subject_test.txt"
+# read the subjects
+trainSubject <- read.delim(trainSubjectFile)
+testSubject <- read.delim(testSubjectFile)
+
+# get the actvities
+# files that identify the activity in each row of data above
+trainActivityFile <- "UCI HAR Dataset/train/y_train.txt"
+testActivityFile <- "UCI HAR Dataset/test/y_test.txt"
+# read the activities
+trainActivity <- read.delim(trainActivityFile)
+testActivity <- read.delim(testActivityFile)
+
+# read the activities
+
+# get the activity labels
+activityLabelFile <- "UCI HAR Dataset/activity_labels.txt"
+# read the labels
+activityLabel <- read.table(activityLabelFile, sep=" ")
+
+
 
 # Merge the training and the test sets to create one data set.
 
