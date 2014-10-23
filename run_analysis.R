@@ -59,15 +59,13 @@ testSubjectFile <- "UCI HAR Dataset/test/subject_test.txt"
 trainSubject <- read.delim(trainSubjectFile)
 testSubject <- read.delim(testSubjectFile)
 
-# get the actvities
+# get the activities
 # files that identify the activity in each row of data above
 trainActivityFile <- "UCI HAR Dataset/train/y_train.txt"
 testActivityFile <- "UCI HAR Dataset/test/y_test.txt"
 # read the activities
 trainActivity <- read.delim(trainActivityFile)
 testActivity <- read.delim(testActivityFile)
-
-# read the activities
 
 # get the activity labels
 activityLabelFile <- "UCI HAR Dataset/activity_labels.txt"
