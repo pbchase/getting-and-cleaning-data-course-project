@@ -72,15 +72,18 @@ activityLabelFile <- "UCI HAR Dataset/activity_labels.txt"
 # read the labels
 activityLabel <- read.table(activityLabelFile, sep=" ")
 
+# Make a variable to indicate data is train data
+subjectGroup <- rep("train", nrow(trainData))
 # Merge all the components of the training data into one dataframe
-train <- cbind(trainSubject, trainActivity, trainData)
+train <- cbind(trainSubject, trainActivity, subjectGroup, trainData)
 
+# Make a variable to indicate data is test data
+subjectGroup <- rep("test", nrow(testData))
 # Merge all the components of the test data into one dataframe
-test <- cbind(testSubject, testActivity, testData)
-
+test <- cbind(testSubject, testActivity, subjectGroup, testData)
 
 # Merge the training and the test sets to create one data set.
-
+data <- rbind(train, test)
 
 # Extract the measurements on the mean and standard deviation for each measurement.
 
