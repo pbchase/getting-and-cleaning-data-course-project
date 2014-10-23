@@ -56,16 +56,18 @@ testData <- read.fwf(testDataFile, feature_widths, sep='')
 trainSubjectFile <- "UCI HAR Dataset/train/subject_train.txt"
 testSubjectFile <- "UCI HAR Dataset/test/subject_test.txt"
 # read the subjects
-trainSubject <- read.table(trainSubjectFile)
-testSubject <- read.table(testSubjectFile)
+colName <- c("subject")
+trainSubject <- read.table(trainSubjectFile, col.names=colName)
+testSubject <- read.table(testSubjectFile, col.names=colName)
 
 # get the activities
 # files that identify the activity in each row of data above
 trainActivityFile <- "UCI HAR Dataset/train/y_train.txt"
 testActivityFile <- "UCI HAR Dataset/test/y_test.txt"
 # read the activities
-trainActivity <- read.table(trainActivityFile)
-testActivity <- read.table(testActivityFile)
+colName <- c("activity_code")
+trainActivity <- read.table(trainActivityFile, col.names=colName)
+testActivity <- read.table(testActivityFile, col.names=colName)
 
 # get the activity labels
 activityLabelFile <- "UCI HAR Dataset/activity_labels.txt"
