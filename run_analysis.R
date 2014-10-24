@@ -72,7 +72,8 @@ testActivity <- read.table(testActivityFile, col.names=colName)
 # get the activity labels
 activityLabelFile <- "UCI HAR Dataset/activity_labels.txt"
 # read the labels
-activityLabel <- read.table(activityLabelFile, sep=" ")
+colName <- c("activity_code", "activity")
+activityLabel <- read.table(activityLabelFile, sep=" ", col.names=colName)
 
 # Make a variable to indicate data is train data
 subjectGroup <- rep("train", nrow(trainData))
@@ -85,12 +86,22 @@ subjectGroup <- rep("test", nrow(testData))
 test <- cbind(testSubject, testActivity, subjectGroup, testData)
 
 # Merge the training and the test sets to create one data set.
-data <- rbind(train, test)
+combinedData <- rbind(train, test)
 
 # Use descriptive activity names to name the activities in the data set
-
+data <- merge(combinedData, activityLabel, by="activity_code")
 
 # Labels the data set with descriptive variable names.
+# Read the variable names for the whole dataset
+variablesFile <- "UCI HAR Dataset/features.txt"
+colName <- c("variableNumber", "variable")
+variables <- read.table(variablesFile, sep=" ", col.names=colName)
+# extract names of with the pattern  "mean|std" using the mask
+variable.names <- variables$variable[mask]
+# replace parens in variable.names
+variable.names <- sub("\\(\\)", "", variable.names)
+# replace hyphens in variable.names
+variable.names <- gsub("-", ".", variable.names)
 
 
 # Creates a tidy data set from preceding steps with the average of each variable
