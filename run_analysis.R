@@ -108,5 +108,9 @@ data <- merge(activityLabel, combinedData, by="activity_code")
 # remove activity_code column as it is now redundant
 data <- subset(data, select=-c(activity_code))
 
+# write the merged, labeled dataset
+dataFile <- "merged-and-labeled-mean-and-std-data.csv"
+write.table(data, dataFile)
+
 # Creates a tidy data set from preceding steps with the average of each variable
 # for each activity and each subject.
