@@ -43,13 +43,27 @@ mask[trueValues] <- TRUE
 feature_widths <- rep(-16, 561)
 feature_widths[mask] <- 16
 
+# Label the data set(s) with descriptive variable names.
+# Read the variable names for the whole dataset
+variablesFile <- "UCI HAR Dataset/features.txt"
+colName <- c("variableNumber", "variable")
+variables <- read.table(variablesFile, sep=" ", col.names=colName)
+# extract names of with the pattern  "mean|std" using the mask
+variable.names <- variables$variable[mask]
+# replace parens in variable.names
+variable.names <- sub("\\(\\)", "", variable.names)
+# replace hyphens in variable.names
+variable.names <- gsub("-", ".", variable.names)
+
 # Get the data
 # These file are training and test data
 trainDataFile <- "UCI HAR Dataset/train/X_train.txt"
 testDataFile <- "UCI HAR Dataset/test/X_test.txt"
 # Read the data sets
-trainData <- read.fwf(trainDataFile, feature_widths, sep='')
-testData <- read.fwf(testDataFile, feature_widths, sep='')
+trainData <- read.fwf(trainDataFile, feature_widths, sep='',
+    col.names=variable.names)
+testData <- read.fwf(testDataFile, feature_widths, sep='',
+    col.names=variable.names)
 
 # Get the subjects
 # files that identify the subject in each row of data above
@@ -89,20 +103,10 @@ test <- cbind(testSubject, testActivity, subjectGroup, testData)
 combinedData <- rbind(train, test)
 
 # Use descriptive activity names to name the activities in the data set
-data <- merge(combinedData, activityLabel, by="activity_code")
+data <- merge(activityLabel, combinedData, by="activity_code")
 
-# Labels the data set with descriptive variable names.
-# Read the variable names for the whole dataset
-variablesFile <- "UCI HAR Dataset/features.txt"
-colName <- c("variableNumber", "variable")
-variables <- read.table(variablesFile, sep=" ", col.names=colName)
-# extract names of with the pattern  "mean|std" using the mask
-variable.names <- variables$variable[mask]
-# replace parens in variable.names
-variable.names <- sub("\\(\\)", "", variable.names)
-# replace hyphens in variable.names
-variable.names <- gsub("-", ".", variable.names)
-
+# remove activity_code column as it is now redundant
+data <- subset(data, select=-c(activity_code))
 
 # Creates a tidy data set from preceding steps with the average of each variable
 # for each activity and each subject.
