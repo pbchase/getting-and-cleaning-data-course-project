@@ -57,6 +57,8 @@ variable.names <- variables$variable[mask]
 variable.names <- sub("\\(\\)", "", variable.names)
 # replace hyphens in variable.names
 variable.names <- gsub("-", ".", variable.names)
+# replace "BodyBody" with "Body" variable.names
+variable.names <- sub("BodyBody", "Body", variable.names)
 
 # Get the data
 # These file are training and test data
