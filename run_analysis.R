@@ -2,6 +2,7 @@
 
 # load required libraries
 library(data.table)
+library(dplyr)
 
 # Download data file
 dataFile <- "getdata_data_projectfiles_UCI_HAR_Dataset.zip"
@@ -110,5 +111,10 @@ data <- subset(data, select=-c(activity_code))
 dataFile <- "merged-and-labeled-mean-and-std-data.csv"
 write.table(data, dataFile)
 
-# Creates a tidy data set from preceding steps with the average of each variable
+# Create a tidy data set from preceding steps with the average of each variable
 # for each activity and each subject.
+# use the dplyr library
+tidy.data <- group_by(data, activity, subject) %>% summarise_each(funs(mean))
+
+# Write that data out to a file
+write.table(tidy.data, "uci_har_tidy_data.csv", row.name=FALSE)
