@@ -91,15 +91,11 @@ activityLabelFile <- "UCI HAR Dataset/activity_labels.txt"
 colName <- c("activity_code", "activity")
 activityLabel <- read.table(activityLabelFile, sep=" ", col.names=colName)
 
-# Make a variable to indicate data is train data
-subjectGroup <- rep("train", nrow(trainData))
 # Merge all the components of the training data into one dataframe
-train <- cbind(trainSubject, trainActivity, subjectGroup, trainData)
+train <- cbind(trainSubject, trainActivity, trainData)
 
-# Make a variable to indicate data is test data
-subjectGroup <- rep("test", nrow(testData))
 # Merge all the components of the test data into one dataframe
-test <- cbind(testSubject, testActivity, subjectGroup, testData)
+test <- cbind(testSubject, testActivity, testData)
 
 # Merge the training and the test sets to create one data set.
 combinedData <- rbind(train, test)
