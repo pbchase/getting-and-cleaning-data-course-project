@@ -8,6 +8,8 @@ This analysis was performed on the datasets found at https://d396qusza40orc.clou
 
 Separate data files within the zip file describe the data used ot train the algorithms, test the algorithms, the subjects in each row data, the variables in each column of data and the labels for each activity.
 
+The source data also includes detailed documentation on the acquisition and processing of this data.
+
 ## Analysis
 
 This work combines the separate datasets so that a means value can be calculated for each of several variables for each activity performed by each subject.  Descriptive labels are applied to each of the activities and each of the variables.  The variables included in the final tidy dataset are the subject identifier, the activity label and each variable for which the source data had a calculated mean or standard deviation.
