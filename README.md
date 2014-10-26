@@ -28,6 +28,19 @@ The resultant tidy data set is created by the R script, run_analysis.R, included
 * Produce means values for each of the variables in the assembled data grouped by Subject and Activity
 * Write a tidy dataset of the grouped means values
 
+## Using run_analysis.R
+
+The script run_analysis.R requires Base R and the packages dplyr and data.table.  If they are not already installed in R, install them with these commands from inside R:
+
+	install.packages("dplyr")
+	install.packages("data.table")
+
+Then source the script to download the dataset, run the analysis and generate the output.
+
+	source("run_analysis.R")
+
+The tidy data set will be written the to file uci_har_tidy_data.csv
+
 ## Results
 
 The tidy dataset created by run_analysis.R is described in the file [CodeBook.md](CodeBook.md) included in this repo.
