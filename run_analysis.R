@@ -119,4 +119,4 @@ write.table(data, dataFile)
 tidy.data <- group_by(data, activity, subject) %>% summarise_each(funs(mean))
 
 # Write that data out to a file
-write.table(tidy.data, "uci_har_tidy_data.csv", row.name=FALSE)
+write.table(tidy.data, "uci_har_tidy_data.txt", row.name=FALSE)

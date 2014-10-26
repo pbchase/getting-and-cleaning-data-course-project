@@ -39,7 +39,7 @@ Then source the script to download the dataset, run the analysis and generate th
 
 	source("run_analysis.R")
 
-The tidy data set will be written the to file uci_har_tidy_data.csv
+The tidy data set will be written the to file uci_har_tidy_data.txt
 
 ## Results
 
